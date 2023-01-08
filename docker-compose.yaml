@@ -1,0 +1,34 @@
+version: "3"
+services:
+  frontend:
+    image: localhost:5050/frontend-app
+    ports:
+      - "80:80"
+    networks:
+      - mynet
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+  backend:
+    image: localhost:5050/backend-app
+    ports:
+      - "5000:5000"
+    networks:
+      - mynet
+    depends_on:
+      - mongodb-service
+  mongodb-service:
+      image: mongo
+      ports:
+        - "27017:27017"
+      networks:
+        - mynet
+      volumes:
+        - myvol:/data/db
+networks:
+  mynet:
+    driver: bridge
+volumes:
+  myvol:
+    driver: local

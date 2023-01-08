@@ -117,7 +117,20 @@ app.use("/api/jobs", jobs);
 app.get('/', (req, res) => {
     res.send('server up and running.');
 });
+//liveness
+app.get('/health', (req, res) => {
+    res.status(200).send();
+});
 
+//readiness
+app.get('/ready', (req, res) => {
+    res.status(200).send();
+});
+
+//startup
+app.get('/healthz', (req, res) => {
+    res.status(200).send();
+});
 const port = process.env.PORT || 5000;
 
 server.listen(port, () => console.log(`Server v8 up and running on port ${port} !`));
